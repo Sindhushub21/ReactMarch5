@@ -1,12 +1,12 @@
-name: Node.js Package
+name: Node.js CI
 
 on: 
   push:
-    branches: [main]
+    branches: [ main ]
   pull_request:
     branches: [ main ]
   release:
-    types: [created]
+    types: [ created ]
 
 jobs:
 
@@ -16,14 +16,12 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: 12
-      - run: npm install --force
+          node-version: 12.x
+      - run: npm ci
         working-directory: ClientApp
-      - run: npm audit fix --force
+      - run: npm run build --if-present
         working-directory: ClientApp
-#      - run: npm test
-#        working-directory: ClientApp
-      - run: npm run build
+      - run: npm test
         working-directory: ClientApp
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2.2.2
