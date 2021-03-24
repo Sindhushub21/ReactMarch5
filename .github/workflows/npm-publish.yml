@@ -1,4 +1,3 @@
-#Subtle change
 name: Node.js Package
 
 on: 
@@ -18,13 +17,11 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-      - run: npm install --force
+      - run: npm ci
         working-directory: ClientApp
-      - run: npm audit fix --force
+      - run: npm test
         working-directory: ClientApp
-#      - run: npm test
-#        working-directory: ClientApp
-      - run: npm run build
+      - run: npm run build --if-present
         working-directory: ClientApp
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2.2.2
