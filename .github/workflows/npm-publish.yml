@@ -28,8 +28,8 @@ jobs:
         uses: actions/upload-artifact@v2.2.2
         with:
           name: Artifact_ClientApp
-          path: ClientApp/build
-        
+          path: ClientApp/build        
+          
   buildServer:
     runs-on: ubuntu-latest
     steps:
@@ -44,6 +44,22 @@ jobs:
         with:
           name: Artifact_Server
           path: Server
+          
+  buildDockerClient:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build the stack
+      - run: docker-compose up -d
+      - name: Test
+      - run: docker run --network container:reactClient appropriate/curl -s --retry 10 --retry-connrefused http://localhost:5000/
+
+          
+          
+          
+          
+          
+          
         
         
         
