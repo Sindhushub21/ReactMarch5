@@ -105,7 +105,7 @@ export class Inventory extends React.Component {
     var s = new Option().style;
     strColor = strColor.toLowerCase()
     s.color = strColor;
-    return s.color == strColor;
+    return s.color === strColor;
   }
   carIsValid = (car) => {
     if (!this.validateYearPrice(car))

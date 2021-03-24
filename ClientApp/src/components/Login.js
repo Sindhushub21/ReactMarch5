@@ -26,7 +26,7 @@ export class Login extends Component {
     event.preventDefault();
     let succesfulLogIn = false;
     for (let i = 0; i < testEmailsArr.length; i++) {
-      if (this.state.email == testEmailsArr[i].email && this.state.password == testEmailsArr[i].password) {
+      if (this.state.email === testEmailsArr[i].email && this.state.password === testEmailsArr[i].password) {
         succesfulLogIn = true;
         break;
       }
