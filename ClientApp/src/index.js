@@ -7,9 +7,9 @@ import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux'
 import { createStore } from 'redux';
 
-
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 const rootElement = document.getElementById('root');
+const connection = 'localhost';
 
 const initialState = {
   count: 0
@@ -33,7 +33,7 @@ const store = createStore(reducer);
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter basename={baseUrl}>
-      <App />
+      <App connection={connection}/>
     </BrowserRouter>
   </Provider>,
   rootElement);

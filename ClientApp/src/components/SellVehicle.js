@@ -17,14 +17,10 @@ export class SellVehicle extends Component {
 
   submitCar = (event) => {
     event.preventDefault();
-
-    //this.props.propAddCar(this.state.car);
-    // we need this ^^^ to do this ,,,
-    //server.js.put();
+    this.props.postCar(this.state.car);
   }
 
   handleInputChange = (event) => {
-    console.log("fired handleInputChange");
     event.persist();
     this.setState(prevState => ({
       car: {
