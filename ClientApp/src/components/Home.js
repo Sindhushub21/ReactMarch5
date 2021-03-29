@@ -9,7 +9,7 @@ export class Home extends Component {
       <div className="home">
         <h1>Welcome to 'Car-Dealership'!</h1>
         <p>Please Login or Sign-Up</p>
-        <Login />
+        <Login users={this.props.users} UpdateLoginStatus={this.props.UpdateLoginStatus}/>
       </div>
     );
   }

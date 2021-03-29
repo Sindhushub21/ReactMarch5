@@ -12,7 +12,6 @@ const getData = async () => {
 };
 
 const postData = (data) => {
-    console.log(`5th inventory-methods:postData() data = ${JSON.stringify(data)}`);
     return Inventory.insertMany(data);
 }
 

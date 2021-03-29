@@ -6,10 +6,6 @@ export class Inventory extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {
-      carsList: vehicles,
-      viewingList: true
-    };
   }
 
   returnListOfCarsInHtml(listedCars) {
@@ -35,28 +31,16 @@ export class Inventory extends React.Component {
 
   addNewCar = (car) => {
     if (this.carIsValid(car)) {
-      // Add the 'New Car' to the existing inventory: CarsList
-      this.setState(prevState => ({
-        ...prevState.car,
-        carsList: this.state.carsList.concat(car)
-      }))
-      // switch view to CarsList
-      this.displayForm();
+      console.log("hi");
     }
   }
 
-  displayForm = () => {
-    this.setState(prevState => ({
-      ...prevState,
-      viewingList: !this.state.viewingList
-    }))
-  }
-
   render() {
+    console.log("render() list of cars");
     return (
       <div className="cars-inventory">
         <h1>Cars Page!</h1>
-        {this.returnListOfCarsInHtml(this.state.carsList)}
+        {this.returnListOfCarsInHtml(this.props.carsList)}
       </div>
     );
   }

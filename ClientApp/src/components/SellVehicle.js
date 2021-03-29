@@ -16,7 +16,7 @@ export class SellVehicle extends Component {
   }
 
   submitCar = (event) => {
-    event.preventDefault();
+    //event.preventDefault();
     this.props.postCar(this.state.car);
   }
 

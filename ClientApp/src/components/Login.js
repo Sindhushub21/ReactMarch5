@@ -1,10 +1,5 @@
 import React, { Component } from 'react';
-
-let testEmailsArr = [
-  { email: "test@test.com", password: "password" },
-  { email: "test2@test.com", password: "password2" },
-  { email: "johnSmith@test.com", password: "password3" }
-]
+import { Link } from 'react-router-dom';
 
 export class Login extends Component {
   static displayName = Login.name;
@@ -24,18 +19,23 @@ export class Login extends Component {
 
   handleAuthentication = (event) => {
     event.preventDefault();
-    let succesfulLogIn = false;
-    for (let i = 0; i < testEmailsArr.length; i++) {
-      if (this.state.email === testEmailsArr[i].email && this.state.password === testEmailsArr[i].password) {
-        succesfulLogIn = true;
+    let loggedIn = false;
+    for (let i = 0; i < this.props.users.length; i++) {
+      if (this.state.email === this.props.users[i].email && this.state.password === this.props.users[i].password) {
+        console.log("Success");
+        if (this.props.users[i].isAdmin) {
+          this.props.UpdateLoginStatus(true, true, this.props.users[i]);
+        }
+        else
+        {
+          this.props.UpdateLoginStatus(true, false, this.props.users[i]);
+        }
+        loggedIn = true;
         break;
       }
     }
-    if (succesfulLogIn) {
-      console.log("Logged In!");
-    }
-    else {
-      console.log("Incorrect UserName or Password");
+    if (!loggedIn) {
+      alert("Incorrect UserName or Password");
     }
   }
 

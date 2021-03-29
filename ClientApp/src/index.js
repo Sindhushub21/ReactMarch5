@@ -9,7 +9,11 @@ import { createStore } from 'redux';
 
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 const rootElement = document.getElementById('root');
-const connection = 'localhost';
+
+//const connection = 'localhost:8080';
+const connection = '172.20.80.1:8080';
+
+//const connection = 'localhost:5001';
 
 const initialState = {
   count: 0

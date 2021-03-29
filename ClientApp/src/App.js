@@ -12,24 +12,27 @@ class App extends Component {
     inventoryData: [],
     url: null,
     loading: false,
+    users: [],
+    loggedIn: false,
+    isAdmin: false,
+    currentUser: null,
   }
 
   getData = async (url) => {
     const response = await fetch(url, {
       headers: {
-        'contentType': 'application/json',
+        'content-Type': 'application/json',
       },
     });
     return response.json();
   };
 
   postData = async (data, url) => {
-    console.log("postData()");
-    console.log(`JSON.string.data = ${JSON.stringify(data)}`); // GOOD
     const response = await fetch(url, {
       method: 'POST',
       headers: {
-        'contentType': 'application/json'
+        'accept' : 'application/json',
+        'content-Type': 'application/json'
       },
       body: JSON.stringify(data)
     });
@@ -37,30 +40,49 @@ class App extends Component {
   };
 
   postCar = (car) => {
-    // this.setState({
-    //   inventoryData: this.state.inventoryData.concat(car),
-    //   loading: true,
-    // });
-    this.postData(car, `http://${this.props.connection}:8080/postCar`);
+    this.postData(car, `http://${this.props.connection}/api/ToDoItems`);
   };
 
   componentDidMount() {
-    this.getData(`http://${this.props.connection}:8080/`)
-      .then((data) => {
+    console.log("App.js componentDidMount()");
+    this.getData(`http://${this.props.connection}/`)
+      .then((data) => 
+      {
         this.setState({
           ...this.state,
           inventoryData: data,
           loading: false
         });
       })
+      this.getData(`http://${this.props.connection}/users`)
+      .then((data) => 
+      {
+        this.setState({
+          ...this.state,
+          users: data
+        });
+      })
   };
+
+  UpdateLoginStatus = (status, isAdmin, user) => {
+    this.setState({
+      ...this.state,
+      loggedIn: status,
+      isAdmin: isAdmin,
+      currentUser: user
+    });
+  }
 
   render() {
     return (
       <div className="App">
-        <Layout>
-          <Route exact path='/' component={Home} />
-          <Route path='/Inventory' component={Inventory} />
+        <Layout users={this.state.users} UpdateLoginStatus={this.UpdateLoginStatus} loggedIn={this.state.loggedIn}>
+          <Route exact path='/'>
+            <Home users={this.state.users} UpdateLoginStatus={this.UpdateLoginStatus}/>
+          </Route>
+          <Route path='/Inventory'>
+            <Inventory carsList={this.state.inventoryData}/>
+          </Route>
           <Route path='/SellVehicle'>
             <SellVehicle postCar={this.postCar} />
           </Route>
