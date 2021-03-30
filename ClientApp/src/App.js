@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Route } from 'react-router';
 import { Layout } from './components/Layout';
-import { Home } from './components/Home';
+import { Login } from './components/Login';
 import { Inventory } from './components/Inventory';
 import { SellVehicle } from './components/SellVehicle';
 import Counter from './components/Counter';
@@ -44,7 +44,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    console.log("App.js componentDidMount()");
+    console.log("State changed in App.js!");
     this.getData(`http://${this.props.connection}/`)
       .then((data) => 
       {
@@ -65,12 +65,14 @@ class App extends Component {
   };
 
   UpdateLoginStatus = (status, isAdmin, user) => {
+    console.log("UpdateLoginStatus()");
     this.setState({
       ...this.state,
       loggedIn: status,
       isAdmin: isAdmin,
       currentUser: user
     });
+    console.log(`1: loggedIn = ${this.state.loggedIn}`);
   }
 
   render() {
@@ -78,7 +80,7 @@ class App extends Component {
       <div className="App">
         <Layout users={this.state.users} UpdateLoginStatus={this.UpdateLoginStatus} loggedIn={this.state.loggedIn}>
           <Route exact path='/'>
-            <Home users={this.state.users} UpdateLoginStatus={this.UpdateLoginStatus}/>
+            <Login users={this.state.users} UpdateLoginStatus={this.UpdateLoginStatus} loggedIn={this.state.loggedIn}/>
           </Route>
           <Route path='/Inventory'>
             <Inventory carsList={this.state.inventoryData}/>

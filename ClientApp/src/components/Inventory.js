@@ -20,7 +20,7 @@ export class Inventory extends React.Component {
             <li>Model: {listedCars[i].model}</li>
             <li>Year: {listedCars[i].year}</li>
             <li>Color: {listedCars[i].color}</li>
-            <li>Price: {(listedCars[i].price).toLocaleString('en-US', { style: 'currency', currency: 'USD', })}</li>
+            <li>Price: {(listedCars[i].price)}</li>
             <li>Listed By: {listedCars[i].user}</li>
           </ul>
         </div>
@@ -45,6 +45,11 @@ export class Inventory extends React.Component {
     );
   }
 
+
+
+
+
+  
   // --- CAR VALIDATION RULES ---
   validateYearPrice = (car) => {
     if (isNaN(car.year) || isNaN(car.price)) {
