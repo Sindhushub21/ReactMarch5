@@ -4,7 +4,8 @@ import { Layout } from './components/Layout';
 import { Login } from './components/Login';
 import { Inventory } from './components/Inventory';
 import { SellVehicle } from './components/SellVehicle';
-import Counter from './components/Counter';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 class App extends Component {
 
@@ -31,7 +32,7 @@ class App extends Component {
     const response = await fetch(url, {
       method: 'POST',
       headers: {
-        'accept' : 'application/json',
+        'accept': 'application/json',
         'content-Type': 'application/json'
       },
       body: JSON.stringify(data)
@@ -39,30 +40,38 @@ class App extends Component {
     return response;
   };
 
-  postCar = (car) => {
-    this.postData(car, `http://${this.props.connection}/api/ToDoItems`);
+  postCar = async (car) => {
+    await this.postData(car, `https://${this.props.connection}/api/cars/post`);
   };
 
   componentDidMount() {
-    console.log("State changed in App.js!");
-    this.getData(`http://${this.props.connection}/`)
-      .then((data) => 
-      {
+    this.getData(`https://${this.props.connection}/api/cars`)
+      .then((data) => {
         this.setState({
           ...this.state,
           inventoryData: data,
           loading: false
         });
       })
-      this.getData(`http://${this.props.connection}/users`)
-      .then((data) => 
-      {
+    this.getData(`https://${this.props.connection}/api/users`)
+      .then((data) => {
         this.setState({
           ...this.state,
           users: data
         });
       })
   };
+
+  getCars = () => {
+    this.getData(`https://${this.props.connection}/api/cars`)
+      .then((data) => {
+        this.setState({
+          ...this.state,
+          inventoryData: data,
+          loading: false
+        });
+      })
+  }
 
   UpdateLoginStatus = (status, isAdmin, user) => {
     console.log("UpdateLoginStatus()");
@@ -80,15 +89,14 @@ class App extends Component {
       <div className="App">
         <Layout users={this.state.users} UpdateLoginStatus={this.UpdateLoginStatus} loggedIn={this.state.loggedIn}>
           <Route exact path='/'>
-            <Login users={this.state.users} UpdateLoginStatus={this.UpdateLoginStatus} loggedIn={this.state.loggedIn}/>
+            <Login users={this.state.users} UpdateLoginStatus={this.UpdateLoginStatus} loggedIn={this.state.loggedIn} currentUser={this.state.currentUser} />
           </Route>
           <Route path='/Inventory'>
-            <Inventory carsList={this.state.inventoryData}/>
+            <Inventory carsList={this.state.inventoryData} getCars={this.getCars} />
           </Route>
           <Route path='/SellVehicle'>
             <SellVehicle postCar={this.postCar} />
           </Route>
-          <Route path='/Counter' component={Counter} />
         </Layout>
       </div>
     )

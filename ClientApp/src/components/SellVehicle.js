@@ -1,4 +1,12 @@
 import React, { Component } from 'react';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Card from 'react-bootstrap/Card';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/esm/Col';
+import { Redirect } from 'react-router';
+
 
 export class SellVehicle extends Component {
 
@@ -12,12 +20,23 @@ export class SellVehicle extends Component {
       price: "",
       user: "",
       img: ""
-    }
+    },
+    user: "",
+    carSubmited: false
   }
 
   submitCar = (event) => {
-    //event.preventDefault();
+    event.persist();
+    this.setState(prevState => ({
+      ...prevState,
+      carSubmited: true
+    }))
+    event.preventDefault();
     this.props.postCar(this.state.car);
+  }
+
+  otherFunction = (event) => {
+    console.log("Hello");
   }
 
   handleInputChange = (event) => {
@@ -32,21 +51,49 @@ export class SellVehicle extends Component {
   }
 
   render() {
+    console.log("render sellVehicle");
+    if (this.state.carSubmited) {
+      return <Redirect push to="/Inventory" />;
+    }
     return (
-      <div>
-        <h1>Sell Vehicle Page!</h1>
-        <br></br>
-        <form onSubmit={this.submitCar}>
-          <input type="input" name="owner" placeholder="Owner" onChange={this.handleInputChange}></input>
-          <input type="input" name="year" placeholder="Year" onChange={this.handleInputChange}></input>
-          <input type="input" name="make" placeholder="Make" onChange={this.handleInputChange}></input>
-          <input type="input" name="model" placeholder="Model" onChange={this.handleInputChange}></input>
-          <input type="input" name="color" placeholder="Color" onChange={this.handleInputChange}></input>
-          <input type="input" name="price" placeholder="Price" onChange={this.handleInputChange}></input>
-          <button type="submit">Submit</button>
-        </form>
-        {/* <button className="btn btn-primary" onClick={this.incrementCounter}>View History</button> */}
-      </div>
+      <Container fluid>
+        <Row>
+          <Col />
+          <Col>
+            <Card style={{ width: '24rem', padding: '8px' }}>
+              <Card.Header as="h5" style={{ textAlign: 'center' }}>Sell Vehicle</Card.Header>
+              <Form onSubmit={this.submitCar}>
+                  <Form.Group controlId="formOwner">
+                    <Form.Label>Owner</Form.Label>
+                    <Form.Control name="owner" placeholder="Enter Owner Name Here" onChange={this.handleInputChange} />
+                  </Form.Group>
+                  <Form.Group controlId="formYear">
+                    <Form.Label>Year</Form.Label>
+                    <Form.Control name="year" placeholder="Enter Year of Vehicle Here" onChange={this.handleInputChange} />
+                  </Form.Group>
+                  <Form.Group controlId="formMake">
+                    <Form.Label>Make</Form.Label>
+                    <Form.Control name="make" placeholder="Enter Make of Vehicle Here" onChange={this.handleInputChange} />
+                  </Form.Group>
+                  <Form.Group controlId="formModel">
+                    <Form.Label>Model</Form.Label>
+                    <Form.Control name="model" placeholder="Enter Model of Vehicle Here" onChange={this.handleInputChange} />
+                  </Form.Group>
+                  <Form.Group controlId="formColor">
+                    <Form.Label>Color</Form.Label>
+                    <Form.Control name="color" placeholder="Enter Color of Vehicle Here" onChange={this.handleInputChange} />
+                  </Form.Group>
+                  <Form.Group controlId="formPrice">
+                    <Form.Label>Price</Form.Label>
+                    <Form.Control name="price" type="number" placeholder="Enter Price of Vehicle Here" onChange={this.handleInputChange} />
+                  </Form.Group>
+                  <Button variant="primary" type="submit">Submit</Button>
+                </Form>
+            </Card>
+          </Col>
+          <Col />
+        </Row>
+      </Container>
     );
   }
 }

@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Card from 'react-bootstrap/Card';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/esm/Col';
+import { Redirect } from 'react-router';
+
 
 export class Login extends Component {
   static displayName = Login.name;
@@ -26,8 +33,7 @@ export class Login extends Component {
         if (this.props.users[i].isAdmin) {
           this.props.UpdateLoginStatus(loggedIn, true, this.props.users[i]);
         }
-        else
-        {
+        else {
           this.props.UpdateLoginStatus(loggedIn, false, this.props.users[i]);
         }
         console.log("Logged In!");
@@ -41,25 +47,42 @@ export class Login extends Component {
 
 
   render() {
-    if (this.props.loggedIn)
-    {
-      return (
-        <div>
-          <h1>Welcome to 'Car-Dealership'!</h1>
-        </div>
-      );
+    if (this.props.loggedIn) {
+      return <Redirect push to="/Inventory"/>;
     }
-    else
-    {
+    else {
       return (
-        <div>
-          <h1>Please Login</h1>
-          <form onSubmit={this.handleAuthentication}>
-            <input name="email" placeholder="Email" onChange={this.handleInput} />
-            <input name="password" placeholder="Password" type="password" onChange={this.handleInput} />
-            <button type="submit">Login</button>
-          </form>
-        </div>
+        <Container fluid>
+          <Row style={{height:"20vh"}}/>
+          <Row>
+            <Col/>
+            <Col>
+              <Card border="primary" style={{width: '18rem', padding: '8px'}}>
+              <Card.Header as="h5" style={{ textAlign: 'center' }}>Login</Card.Header>
+                <Form onSubmit={this.handleAuthentication}>
+                  <Form.Group controlId="formBasicEmail">
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control name="email" type="email" placeholder="Enter email" onChange={this.handleInput}/>
+                    <Form.Text className="text-muted">
+                      We'll never share your email with anyone else.
+                    </Form.Text>
+                  </Form.Group>
+                  <Form.Group controlId="formBasicPassword">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control type="password" name="password" placeholder="Password" onChange={this.handleInput}/>
+                  </Form.Group>
+                  <Form.Group controlId="formBasicCheckbox">
+                    <Form.Check type="checkbox" label="Remember Me"/>
+                  </Form.Group>
+                  <Button variant="primary" type="submit">
+                    Submit
+                  </Button>
+                </Form>
+              </Card>
+            </Col>
+            <Col/>
+          </Row>
+        </Container>
       );
     }
   }

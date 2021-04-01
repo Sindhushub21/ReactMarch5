@@ -8,7 +8,7 @@ export class Layout extends Component {
   render() {
       return (
         <div>
-          {this.props.loggedIn && <NavMenu/>}
+          {this.props.loggedIn && <NavMenu UpdateLoginStatus={this.props.UpdateLoginStatus}/>}
           {this.props.children}
         </div>
       );
