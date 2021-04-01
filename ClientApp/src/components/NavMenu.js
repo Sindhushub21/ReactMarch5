@@ -35,6 +35,7 @@ export class NavMenu extends Component {
                 <NavItem>
                   <NavLink tag={Link} className="text-dark" to="/SellVehicle">Sell Vehicle</NavLink>
                 </NavItem>
+                <NavLink style={{ cursor: 'default'}}>|</NavLink>
                 <NavItem>
                   <NavLink tag={Link} className="text-dark" to="/" onClick={ () => this.props.UpdateLoginStatus(false, false, null)}>Logout</NavLink>
                 </NavItem>

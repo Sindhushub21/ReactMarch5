@@ -36,7 +36,6 @@ export class Login extends Component {
         else {
           this.props.UpdateLoginStatus(loggedIn, false, this.props.users[i]);
         }
-        console.log("Logged In!");
         break;
       }
     }
@@ -55,7 +54,7 @@ export class Login extends Component {
         <Container fluid>
           <Row style={{height:"20vh"}}/>
           <Row>
-            <Col/>
+          <Col/>
             <Col>
               <Card border="primary" style={{width: '18rem', padding: '8px'}}>
               <Card.Header as="h5" style={{ textAlign: 'center' }}>Login</Card.Header>

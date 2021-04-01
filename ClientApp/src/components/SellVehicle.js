@@ -51,7 +51,6 @@ export class SellVehicle extends Component {
   }
 
   render() {
-    console.log("render sellVehicle");
     if (this.state.carSubmited) {
       return <Redirect push to="/Inventory" />;
     }

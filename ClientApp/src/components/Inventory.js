@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
-import CardColumns from 'react-bootstrap/CardColumns';
+import CardGroup from 'react-bootstrap/CardGroup';
 
 
 export class Inventory extends React.Component {
@@ -13,7 +13,7 @@ export class Inventory extends React.Component {
     const tmpCarsList = []
     for (let i = 0; i < listedCars.length; i++) {
       tmpCarsList.push(
-        <div key={i}>
+        <div key={i} style={{margin: '8px 8px'}}>
           <Card>
             <Card.Header>Car {i + 1}</Card.Header>
             <Card.Body>
@@ -44,16 +44,16 @@ export class Inventory extends React.Component {
   componentDidMount()
   { 
     this.props.getCars();
-    console.log("Yo im mounted");
+    console.log("Inventory.js - componentDidMount()");
   }
 
   render() {
     return (
       <div className="cars-inventory">
         <h1 style={{ textAlign: 'center' }}>Inventory</h1>
-        <CardColumns>
+        <CardGroup style={{ margin: '16px 32px'}}>
           {this.returnListOfCarsInHtml(this.props.carsList)}
-        </CardColumns>
+        </CardGroup>
       </div>
     );
   }

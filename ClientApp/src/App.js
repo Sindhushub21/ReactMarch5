@@ -40,8 +40,8 @@ class App extends Component {
     return response;
   };
 
-  postCar = async (car) => {
-    await this.postData(car, `https://${this.props.connection}/api/cars/post`);
+  postCar = (car) => {
+    this.postData(car, `https://${this.props.connection}/api/cars/post`);
   };
 
   componentDidMount() {
@@ -63,6 +63,7 @@ class App extends Component {
   };
 
   getCars = () => {
+    console.log("App.js - getCars()");    
     this.getData(`https://${this.props.connection}/api/cars`)
       .then((data) => {
         this.setState({
@@ -74,14 +75,12 @@ class App extends Component {
   }
 
   UpdateLoginStatus = (status, isAdmin, user) => {
-    console.log("UpdateLoginStatus()");
     this.setState({
       ...this.state,
       loggedIn: status,
       isAdmin: isAdmin,
       currentUser: user
     });
-    console.log(`1: loggedIn = ${this.state.loggedIn}`);
   }
 
   render() {
