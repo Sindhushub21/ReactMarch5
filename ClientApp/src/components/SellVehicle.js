@@ -22,21 +22,12 @@ export class SellVehicle extends Component {
       img: ""
     },
     user: "",
-    carSubmited: false
   }
 
   submitCar = (event) => {
     event.persist();
-    this.setState(prevState => ({
-      ...prevState,
-      carSubmited: true
-    }))
     event.preventDefault();
     this.props.postCar(this.state.car);
-  }
-
-  otherFunction = (event) => {
-    console.log("Hello");
   }
 
   handleInputChange = (event) => {
@@ -51,13 +42,14 @@ export class SellVehicle extends Component {
   }
 
   render() {
-    if (this.state.carSubmited) {
+    if (this.props.carSubmited) {
       return <Redirect push to="/Inventory" />;
     }
     return (
       <Container fluid>
+        <h1 className="text-center">Contact Us</h1>
         <Row>
-          <Col style={{ display: 'flex', justifyContent: 'center', padding: '8px 0'}}>
+          <Col style={{ display: 'flex', justifyContent: 'center', padding: '16px 0'}}>
             <Card style={{ width: '24rem', padding: '8px' }}>
               <Card.Header as="h5" style={{ textAlign: 'center' }}>Sell Vehicle</Card.Header>
               <Form onSubmit={this.submitCar}>

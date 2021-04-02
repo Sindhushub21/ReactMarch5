@@ -4,6 +4,7 @@ import { Layout } from './components/Layout';
 import { Login } from './components/Login';
 import { Inventory } from './components/Inventory';
 import { SellVehicle } from './components/SellVehicle';
+import { Contact } from './components/Contact'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -17,32 +18,17 @@ class App extends Component {
     loggedIn: false,
     isAdmin: false,
     currentUser: null,
+    carPosted: false
   }
 
-  getData = async (url) => {
-    const response = await fetch(url, {
-      headers: {
-        'content-Type': 'application/json',
-      },
+  UpdateLoginStatus = (status, isAdmin, user) => {
+    this.setState({
+      ...this.state,
+      loggedIn: status,
+      isAdmin: isAdmin,
+      currentUser: user
     });
-    return response.json();
-  };
-
-  postData = async (data, url) => {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'accept': 'application/json',
-        'content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    });
-    return response;
-  };
-
-  postCar = (car) => {
-    this.postData(car, `https://${this.props.connection}/api/cars/post`);
-  };
+  }
 
   componentDidMount() {
     this.getData(`https://${this.props.connection}/api/cars`)
@@ -62,8 +48,16 @@ class App extends Component {
       })
   };
 
+  getData = async (url) => {
+    const response = await fetch(url, {
+      headers: {
+        'content-Type': 'application/json',
+      },
+    });
+    return response.json();
+  };
+
   getCars = () => {
-    console.log("App.js - getCars()");    
     this.getData(`https://${this.props.connection}/api/cars`)
       .then((data) => {
         this.setState({
@@ -74,14 +68,27 @@ class App extends Component {
       })
   }
 
-  UpdateLoginStatus = (status, isAdmin, user) => {
-    this.setState({
-      ...this.state,
-      loggedIn: status,
-      isAdmin: isAdmin,
-      currentUser: user
+  postData = async (data, url) => {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'accept': 'application/json',
+        'content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
     });
-  }
+    return response;
+  };
+
+  postCar = (car) => {
+    this.postData(car, `https://${this.props.connection}/api/cars/post`)
+    .then( () => {
+      this.setState({
+        ...this.state,
+        carPosted: true,
+      });
+    })
+  };
 
   render() {
     return (
@@ -94,7 +101,10 @@ class App extends Component {
             <Inventory carsList={this.state.inventoryData} getCars={this.getCars} />
           </Route>
           <Route path='/SellVehicle'>
-            <SellVehicle postCar={this.postCar} />
+            <SellVehicle postCar={this.postCar} carSubmited={this.state.carPosted}/>
+          </Route>
+          <Route path='/ContactUs'>
+            <Contact/>
           </Route>
         </Layout>
       </div>
