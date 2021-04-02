@@ -57,8 +57,7 @@ export class SellVehicle extends Component {
     return (
       <Container fluid>
         <Row>
-          <Col />
-          <Col>
+          <Col style={{ display: 'flex', justifyContent: 'center', padding: '8px 0'}}>
             <Card style={{ width: '24rem', padding: '8px' }}>
               <Card.Header as="h5" style={{ textAlign: 'center' }}>Sell Vehicle</Card.Header>
               <Form onSubmit={this.submitCar}>
@@ -90,7 +89,6 @@ export class SellVehicle extends Component {
                 </Form>
             </Card>
           </Col>
-          <Col />
         </Row>
       </Container>
     );

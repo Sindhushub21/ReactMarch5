@@ -54,9 +54,8 @@ export class Login extends Component {
         <Container fluid>
           <Row style={{height:"20vh"}}/>
           <Row>
-          <Col/>
-            <Col>
-              <Card border="primary" style={{width: '18rem', padding: '8px'}}>
+            <Col style={{ display: 'flex', justifyContent: 'center'}}>
+              <Card border="primary" style={{ padding: '8px'}}>
               <Card.Header as="h5" style={{ textAlign: 'center' }}>Login</Card.Header>
                 <Form onSubmit={this.handleAuthentication}>
                   <Form.Group controlId="formBasicEmail">
@@ -79,7 +78,6 @@ export class Login extends Component {
                 </Form>
               </Card>
             </Col>
-            <Col/>
           </Row>
         </Container>
       );

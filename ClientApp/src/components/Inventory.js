@@ -51,7 +51,7 @@ export class Inventory extends React.Component {
     return (
       <div className="cars-inventory">
         <h1 style={{ textAlign: 'center' }}>Inventory</h1>
-        <CardGroup style={{ margin: '16px 32px'}}>
+        <CardGroup style={{ margin: '16px 32px', justifyContent: 'center'}}>
           {this.returnListOfCarsInHtml(this.props.carsList)}
         </CardGroup>
       </div>
