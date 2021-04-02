@@ -27,7 +27,7 @@ export class NavMenu extends Component {
         <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" light>
           <Container>
             <NavbarBrand tag={Link} to="/">
-              <img src="https://longmeadowcc.blob.core.windows.net/hanselman-public/CarLogo.png" style={{margin: '0 0 0 0', width: '192px'}}/>
+              <img src="https://longmeadowcc.blob.core.windows.net/hanselman-public/CarLogo.png" style={{margin: '0 0 0 0', width: '176px'}}/>
             </NavbarBrand> 
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
             <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>

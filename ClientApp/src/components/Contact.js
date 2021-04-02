@@ -21,8 +21,8 @@ export class Contact extends Component {
                 <br/>
                 <Card>
                     <Card.Header as="h5" style={{ textAlign: 'center'}}>Find Us</Card.Header>
-                    <Card.Body>
-                        Address: 123 Fake Street
+                    <Card.Body style={{ textAlign: 'center'}}>
+                        Address: 808 W Dealership Dr, Smallville, KS, 67524
                     </Card.Body>
                 </Card>
             </CardGroup>

@@ -47,12 +47,12 @@ export class SellVehicle extends Component {
     }
     return (
       <Container fluid>
-        <h1 className="text-center">Contact Us</h1>
+        <h1 className="text-center">Sell Vehicle</h1>
         <Row>
           <Col style={{ display: 'flex', justifyContent: 'center', padding: '16px 0'}}>
-            <Card style={{ width: '24rem', padding: '8px' }}>
-              <Card.Header as="h5" style={{ textAlign: 'center' }}>Sell Vehicle</Card.Header>
-              <Form onSubmit={this.submitCar}>
+            <Card style={{ width: '24rem' }}>
+              <Card.Header as="h5" style={{ textAlign: 'center' }}>Car Details</Card.Header>
+              <Form onSubmit={this.submitCar} style={{ padding: '16px 16px'}}>
                   <Form.Group controlId="formOwner">
                     <Form.Label>Owner</Form.Label>
                     <Form.Control name="owner" placeholder="Enter Owner Name Here" onChange={this.handleInputChange} />
