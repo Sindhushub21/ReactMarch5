@@ -42,7 +42,7 @@ export class SellVehicle extends Component {
   }
 
   render() {
-    if (this.props.carSubmited) {
+    if (this.props.carPosted) {
       return <Redirect push to="/Inventory" />;
     }
     return (

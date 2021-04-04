@@ -12,12 +12,12 @@ class App extends Component {
 
   state = {
     inventoryData: [],
-    url: null,
-    loading: false,
     users: [],
-    loggedIn: false,
-    isAdmin: false,
+    url: null,
     currentUser: null,
+    isAdmin: false,
+    loading: false,
+    loggedIn: false,
     carPosted: false
   }
 
@@ -82,13 +82,17 @@ class App extends Component {
 
   postCar = (car) => {
     this.postData(car, `https://${this.props.connection}/api/cars/post`)
-    .then( () => {
-      this.setState({
-        ...this.state,
-        carPosted: true,
-      });
-    })
+      .then(() => {
+        this.ToggleCarPostedBool();
+      })
   };
+
+  ToggleCarPostedBool = () => {
+    this.setState({
+      ...this.state,
+      carPosted: !this.state.carPosted,
+    });
+  }
 
   render() {
     return (
@@ -98,13 +102,13 @@ class App extends Component {
             <Login users={this.state.users} UpdateLoginStatus={this.UpdateLoginStatus} loggedIn={this.state.loggedIn} currentUser={this.state.currentUser} />
           </Route>
           <Route path='/Inventory'>
-            <Inventory carsList={this.state.inventoryData} getCars={this.getCars} />
+            <Inventory carsList={this.state.inventoryData} getCars={this.getCars} carPosted={this.state.carPosted} ToggleCarPostedBool={this.ToggleCarPostedBool} />
           </Route>
           <Route path='/SellVehicle'>
-            <SellVehicle postCar={this.postCar} carSubmited={this.state.carPosted}/>
+            <SellVehicle postCar={this.postCar} carPosted={this.state.carPosted} />
           </Route>
           <Route path='/ContactUs'>
-            <Contact/>
+            <Contact />
           </Route>
         </Layout>
       </div>

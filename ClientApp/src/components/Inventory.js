@@ -37,14 +37,13 @@ export class Inventory extends React.Component {
     return tmpCarsList
   }
 
-  addNewCar = (car) => {
-    console.log("Inventory.js / addNewCar();");
-  }
-
   componentDidMount()
   { 
     this.props.getCars();
-    console.log("Inventory.js - componentDidMount()");
+    if (this.props.carPosted)
+    {
+      this.props.ToggleCarPostedBool();
+    }
   }
 
   render() {
@@ -57,8 +56,6 @@ export class Inventory extends React.Component {
       </div>
     );
   }
-
-
 
 
 
