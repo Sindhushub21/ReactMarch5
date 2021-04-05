@@ -6,6 +6,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/esm/Col';
 import { Redirect } from 'react-router';
+import { Link, Route } from "react-router-dom";
 
 
 export class Login extends Component {
@@ -47,31 +48,32 @@ export class Login extends Component {
 
   render() {
     if (this.props.loggedIn) {
-      return <Redirect push to="/Inventory"/>;
+      return <Redirect push to="/Inventory" />;
     }
     else {
       return (
         <Container fluid>
-          <Row style={{height:"20vh"}}/>
+          <Row style={{ height: "20vh" }} />
           <Row>
-            <Col style={{ display: 'flex', justifyContent: 'center'}}>
-              <Card border="primary" style={{ padding: '8px'}}>
-              <Card.Header as="h5" style={{ textAlign: 'center' }}>Login</Card.Header>
+            <Col style={{ display: 'flex', justifyContent: 'center' }}>
+              <Card border="primary" style={{ padding: '8px' }}>
+                <Card.Header as="h5" style={{ textAlign: 'center' }}>Login</Card.Header>
                 <Form onSubmit={this.handleAuthentication}>
                   <Form.Group controlId="formBasicEmail">
                     <Form.Label>Email</Form.Label>
-                    <Form.Control name="email" type="email" placeholder="Enter email" onChange={this.handleInput}/>
+                    <Form.Control name="email" type="email" placeholder="Enter email" onChange={this.handleInput} />
                     <Form.Text className="text-muted">
                       We'll never share your email with anyone else.
                     </Form.Text>
                   </Form.Group>
                   <Form.Group controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" name="password" placeholder="Password" onChange={this.handleInput}/>
+                    <Form.Control type="password" name="password" placeholder="Password" onChange={this.handleInput} />
                   </Form.Group>
                   <Button variant="primary" type="submit">
                     Submit
-                  </Button>
+                  </Button>                                 
+                   <Link to='/Registration' class = "small">  Don't have an account? Sign Up</Link>                                               
                 </Form>
               </Card>
             </Col>

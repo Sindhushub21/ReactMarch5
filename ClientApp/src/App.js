@@ -5,6 +5,7 @@ import { Login } from './components/Login';
 import { Inventory } from './components/Inventory';
 import { SellVehicle } from './components/SellVehicle';
 import { Contact } from './components/Contact'
+import { Registration } from './components/Registration';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -18,7 +19,8 @@ class App extends Component {
     isAdmin: false,
     loading: false,
     loggedIn: false,
-    carPosted: false
+    carPosted: false,
+    userPosted: false
   }
 
   UpdateLoginStatus = (status, isAdmin, user) => {
@@ -87,10 +89,24 @@ class App extends Component {
       })
   };
 
+  postUser = (user) => {
+    this.postData(user, `https://${this.props.connection}/api/users/post`)
+      .then(() => {
+        this.ToggleUserPostedBool();
+      })
+  };
+
   ToggleCarPostedBool = () => {
     this.setState({
       ...this.state,
       carPosted: !this.state.carPosted,
+    });
+  }
+
+  ToggleUserPostedBool = () => {
+    this.setState({
+      ...this.state,
+      userPosted: !this.state.userPosted,
     });
   }
 
@@ -107,9 +123,15 @@ class App extends Component {
           <Route path='/SellVehicle'>
             <SellVehicle postCar={this.postCar} carPosted={this.state.carPosted} />
           </Route>
+          <Route path='/Registration'>
+            <Registration postUser={this.postUser} carPosted={this.state.userPosted} />/>
+          </Route>
           <Route path='/ContactUs'>
             <Contact />
-          </Route>
+          </Route>         
+          <Route path='/Login'>
+            <Login />
+          </Route>      
         </Layout>
       </div>
     )
