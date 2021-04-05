@@ -5,7 +5,8 @@ import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/esm/Col';
-import { Link, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { Redirect } from 'react-router';
 
 
 export class Registration extends Component {
@@ -20,7 +21,6 @@ export class Registration extends Component {
   submitUser = (event) => {
     event.persist();
     event.preventDefault();
-
     //Validate if the passwords match.. if they match submit the form
     this.props.postUser(this.state.user);
   }
@@ -28,12 +28,17 @@ export class Registration extends Component {
   handleInput = (event) => {
     event.persist();
     this.setState(prevState => ({
-      ...prevState,
-      [event.target.name]: event.target.value
+      user: {
+        ...prevState.user,
+        [event.target.name]: event.target.value
+      }
     }))
   }
 
   render() {
+    if (this.props.userPosted) {
+      return <Redirect push to="/" />;
+    }
     return (      
       <Container fluid>
       <Row style={{ height: "20vh" }} />
@@ -57,10 +62,8 @@ export class Registration extends Component {
                 <Form.Label>Confirm Password</Form.Label>
                 <Form.Control type="password" name="password2" placeholder="Confirm Password" onChange={this.handleInput} />
               </Form.Group>
-              <Button variant="primary" type="submit">
-                Submit
-              </Button>                                 
-              <Link to="/Login" class = "small"> Return to Login Screen</Link>   
+              <Button variant="primary" type="submit">Submit</Button>                      
+              <Link to="/"><span style={{float: 'right', padding: '4px 0 0 0'}}>Return to Login Screen</span></Link>   
             </Form>
           </Card>
         </Col>

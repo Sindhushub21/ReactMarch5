@@ -6,7 +6,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/esm/Col';
 import { Redirect } from 'react-router';
-import { Link, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 export class Login extends Component {
@@ -15,6 +15,15 @@ export class Login extends Component {
   state = {
     email: "",
     password: ""
+  }
+
+  componentDidMount()
+  { 
+    this.props.getUsers();
+    if (this.props.userPosted)
+    {
+      this.props.ToggleUserPostedBool();
+    }
   }
 
   handleInput = (event) => {
@@ -73,7 +82,7 @@ export class Login extends Component {
                   <Button variant="primary" type="submit">
                     Submit
                   </Button>                                 
-                   <Link to='/Registration' class = "small">  Don't have an account? Sign Up</Link>                                               
+                   <Link to='/Registration'><span style={{float: 'right', padding: '4px 0 0 0'}}>No account? Sign Up</span></Link>
                 </Form>
               </Card>
             </Col>

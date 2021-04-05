@@ -33,21 +33,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.getData(`https://${this.props.connection}/api/cars`)
-      .then((data) => {
-        this.setState({
-          ...this.state,
-          inventoryData: data,
-          loading: false
-        });
-      })
-    this.getData(`https://${this.props.connection}/api/users`)
-      .then((data) => {
-        this.setState({
-          ...this.state,
-          users: data
-        });
-      })
+    this.getCars();
+    this.getUsers();
   };
 
   getData = async (url) => {
@@ -65,6 +52,17 @@ class App extends Component {
         this.setState({
           ...this.state,
           inventoryData: data,
+          loading: false
+        });
+      })
+  }
+
+  getUsers = () => {
+    this.getData(`https://${this.props.connection}/api/users`)
+      .then((data) => {
+        this.setState({
+          ...this.state,
+          users: data,
           loading: false
         });
       })
@@ -115,7 +113,14 @@ class App extends Component {
       <div className="App">
         <Layout users={this.state.users} UpdateLoginStatus={this.UpdateLoginStatus} loggedIn={this.state.loggedIn}>
           <Route exact path='/'>
-            <Login users={this.state.users} UpdateLoginStatus={this.UpdateLoginStatus} loggedIn={this.state.loggedIn} currentUser={this.state.currentUser} />
+            <Login users={this.state.users} 
+            UpdateLoginStatus={this.UpdateLoginStatus} 
+            loggedIn={this.state.loggedIn} 
+            currentUser={this.state.currentUser} 
+            ToggleUserPostedBool={this.ToggleUserPostedBool}
+            userPosted={this.state.userPosted}
+            getUsers={this.getUsers}
+            />
           </Route>
           <Route path='/Inventory'>
             <Inventory carsList={this.state.inventoryData} getCars={this.getCars} carPosted={this.state.carPosted} ToggleCarPostedBool={this.ToggleCarPostedBool} />
@@ -124,14 +129,15 @@ class App extends Component {
             <SellVehicle postCar={this.postCar} carPosted={this.state.carPosted} />
           </Route>
           <Route path='/Registration'>
-            <Registration postUser={this.postUser} carPosted={this.state.userPosted} />/>
+            <Registration 
+            postUser={this.postUser} 
+            carPosted={this.state.userPosted} 
+            ToggleUserPostedBool={this.ToggleUserPostedBool}
+            userPosted={this.state.userPosted}/>
           </Route>
           <Route path='/ContactUs'>
             <Contact />
-          </Route>         
-          <Route path='/Login'>
-            <Login />
-          </Route>      
+          </Route>
         </Layout>
       </div>
     )
