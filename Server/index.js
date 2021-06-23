@@ -5,7 +5,7 @@ const carQuery = require('./inventory-methods');
 const userQuery = require('./users-methods');
 const connectDb = require('./connection');
 const app = express()
-const port = 8080
+const port = 5000
 
 app.use(express.json());
 app.use(cors());
@@ -55,7 +55,7 @@ app.post('/api/ToDoItems', (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
+    console.log(`Example app listening at https://localhost:${port}`)
     connectDb()
         .then(() => {
             console.log("MongoDB Connected!");

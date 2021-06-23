@@ -1,46 +1,46 @@
-version: "3.9"
+version: '3.9'
 
 services:
   react:
-    container_name: reactClient
+    container_name: 'React'
     build:
-      context: ./ClientApp
-      dockerfile: Dockerfile
+      context: './ClientApp'
+      dockerfile: 'Dockerfile'
     tty: true
     ports:
-      - "3000:3000"
-    restart: always
+      - '3000:3000'
+    restart: 'always'
 
   express:
-    container_name: expressServer
+    container_name: 'Server'
     build:
-      context: ./Server
-      dockerfile: Dockerfile
+      context: './Server'
+      dockerfile: 'Dockerfile'
     ports:
-      - "80:8080"
-    restart: always
+      - '5000:5000'
+    restart: 'always'
 
   mongodb:
-    container_name: mongodb
-    image: mongo:latest
+    container_name: 'mongodb'
+    image: 'mongo'
     ports: 
-        - 27017:27017
+        - '27017:27017'
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_ROOT_USERNAME: 'root'
+      MONGO_INITDB_ROOT_PASSWORD: 'example'
     volumes: 
-      - ./mongodb:/data/db
-    restart: always
+      - './data:/data/db'
+    restart: 'no'
 
   mongo-express:
-    container_name: mongo-express
-    image: mongo-express
+    container_name: 'mongoExpress'
+    image: 'mongo-express'
     ports:
-      - 8081:8081
+      - '8081:8081'
     environment:
-      ME_CONFIG_MONGODB_SERVER: "mongodb"
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_SERVER: 'mongodb'
+      ME_CONFIG_MONGODB_ADMINUSERNAME: 'root'
+      ME_CONFIG_MONGODB_ADMINPASSWORD: 'example'
     depends_on: 
-      - mongodb
-    restart: always
+      - 'mongodb'
+    restart: 'always'
